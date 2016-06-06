@@ -14,7 +14,8 @@ def gen_meme(file_src, file_dir, strings):
     font = ImageFont.truetype("resources/comic_sans_font.ttf", font_size)
     for string in strings:
         max_x = width - (len(string)*font_size)
-        x, y = random.randint(0, width), random.randint(0, height)
+        max_y = height - font_size
+        x, y = random.randint(0, max_x), random.randint(0, max_y)
         drawer.text((x, y), string, (255, 255, 255), font=font)
     image.save(file_dir, "JPEG")
 
