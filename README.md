@@ -11,13 +11,13 @@ This uses Pillow, I guess :p (install with pip)
 Simply by command line, do:
 
 ```
-python run.py "image/src" "image/dest_folder" "text1" "text2" ...
+python run.py "image/src" "image/dest_file" "text1" "text2" ...
 ```
 
 eg.
 
 ```
-python run.py "images/doge_template.png" "images/" "very doge" "wow"
+python run.py "images/doge_template.png" "images/meme.jpeg" "very doge" "wow"
 ```
 
 ## License
