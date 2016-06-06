@@ -12,8 +12,8 @@ def gen_meme(file_src, file_dir, resources_path, strings):
         image = animate_gif(image, file_dir, strings)
     for string in strings:
         image = draw_text_on(image, resources_path, string)
-    # 1/200 chance to add another meme ontop of original image
-    if random.random() < 1:
+    # 1/20 chance to add another meme ontop of original image
+    if random.random() < 0.05:
         image = add_extra_meme(image, resources_path)
     image.save(file_dir, "JPEG")
 
