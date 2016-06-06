@@ -5,7 +5,6 @@ def run(argv):
     if len(argv) < 3:
         raise Exception("Not enough arguments!")
     fsrc, fdest = argv[1:3]
-    print fsrc
     strings = argv[3:]
     memegen.gen_meme(fsrc, fdest, strings)
 
