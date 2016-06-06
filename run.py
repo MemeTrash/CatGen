@@ -15,5 +15,8 @@ def run(argv):
         memegen.gen_meme(fsrc, fdest, strings)
 
 if __name__ == "__main__":
-    run(sys.argv)
-
+    try:
+        run(sys.argv)
+        sys.exit(0)
+    except Exception:
+        sys.exit(1)
