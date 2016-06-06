@@ -18,8 +18,10 @@ def run(argv):
 if __name__ == "__main__":
     try:
         run(sys.argv)
+        print "Done successfully"
         sys.exit(0)
     except Exception:
         # Print traceback
         traceback.print_exc(file=sys.stdout)
+        print "Not done successfully"
         sys.exit(1)
