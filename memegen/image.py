@@ -32,7 +32,11 @@ def draw_text_on(image, text):
     max_y = height - font_size
     x, y = random.randint(0, max_x), random.randint(0, max_y)
     angle = random.uniform(-10, 10)
-    drawer.text((x, y), text, (255, 255, 255), font=font)
+    # 1/4 chance to print text in red instead of white
+    if random.random() < 0.25:
+        drawer.text((x, y), text, (255, 0, 0), font=font)
+    else:
+        drawer.text((x, y), text, (255, 255, 255), font=font)
     rotated_text = text_base.rotate(angle)
     result = Image.alpha_composite(image.convert('RGBA'), rotated_text)
     return result
