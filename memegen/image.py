@@ -8,6 +8,8 @@ def gen_meme(file_src, file_dir, strings):
     Generate a meme from an image and some text.
     """
     image = Image.open(file_src)
+    if file_src[:-4] == file_dir[:-4] == ".gif":
+        image = animate_gif(image, file_dir, strings)
     for string in strings:
         image = draw_text_on(image, string)
     image.save(file_dir, "JPEG")
@@ -34,4 +36,21 @@ def draw_text_on(image, text):
     rotated_text = text_base.rotate(angle)
     result = Image.alpha_composite(image.convert('RGBA'), rotated_text)
     return result
+
+def animate_gif(image, dest_path, strings):
+    """
+    Takes an image and produces + saves an animated gif.
+    Gif is just original image with texts each placed randomly around image at each frame.
+
+    Args:
+        image (Image): Image to convert to animated gif.
+        dest_path (str): Destination file path.
+        strings (list[str]): List of strings to display.
+    """
+    try:
+        while True:
+            image = draw_text_on(image)
+            image.seek(image.tell()+1)
+    except EOFError:
+        image.save(dest_path, "GIF")
 
