@@ -4,7 +4,7 @@ This is the Python app that takes an image directory and text to generate a meme
 
 ## Requirements
 
-This uses TKinter, I guess :p
+This uses Pillow, I guess :p (install with pip)
 
 ## Usage
 
