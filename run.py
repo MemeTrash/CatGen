@@ -1,6 +1,7 @@
 import memegen
 import sys
 import random
+import traceback
 
 def run(argv):
     if len(argv) < 3:
@@ -19,4 +20,6 @@ if __name__ == "__main__":
         run(sys.argv)
         sys.exit(0)
     except Exception:
+        # Print traceback
+        traceback.print_exc(file=sys.stdout)
         sys.exit(1)
