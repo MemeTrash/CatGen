@@ -3,19 +3,22 @@ from PIL import ImageDraw
 from PIL import ImageFont
 import random
 
+
 def gen_meme(file_src, file_dir, resources_path, strings):
     """
     Generate a meme from an image and some text.
     """
     image = Image.open(file_src)
     if file_src[:-4] == file_dir[:-4] == ".gif":
-        image = animate_gif(image, file_dir, strings)
-    for string in strings:
-        image = draw_text_on(image, resources_path, string)
-    # 1/20 chance to add another meme ontop of original image
-    if random.random() < 0.05:
-        image = add_extra_meme(image, resources_path)
-    image.save(file_dir, "JPEG")
+        animate_gif(image, file_dir, strings)
+    else:
+        for string in strings:
+            image = draw_text_on(image, resources_path, string)
+        # 1/20 chance to add another meme ontop of original image
+        if random.random() < 0.05:
+            image = add_extra_meme(image, resources_path)
+        image.save(file_dir, "JPEG")
+
 
 def draw_text_on(image, resources_path, text):
     """
@@ -31,8 +34,8 @@ def draw_text_on(image, resources_path, text):
     font = ImageFont.truetype(resources_path + "/comic_sans_font.ttf", font_size)
     text_base = Image.new('RGBA', image.size, (255, 255, 255, 0))   # Base transparent image to write text on
     drawer = ImageDraw.Draw(text_base)
-    max_x = width - (len(text)*font_size)
-    max_y = height - font_size
+    max_x = max([width - (len(text)*font_size), 10])
+    max_y = max([height - font_size, 10])
     x, y = random.randint(0, max_x), random.randint(0, max_y)
     angle = random.uniform(-10, 10)
     # 1/4 chance to print text in red instead of white
@@ -43,6 +46,7 @@ def draw_text_on(image, resources_path, text):
     rotated_text = text_base.rotate(angle)
     result = Image.alpha_composite(image.convert('RGBA'), rotated_text)
     return result
+
 
 def add_extra_meme(orig_img, resources_path):
     """
@@ -62,6 +66,7 @@ def add_extra_meme(orig_img, resources_path):
     smaller_meme = extra_meme.resize((new_width, new_height), Image.ANTIALIAS)
     orig_img.paste(smaller_meme, (random.randint(0, orig_img.size[0]), random.randint(0, orig_img.size[1])))
     return orig_img
+
 
 def animate_gif(image, dest_path, strings):
     """
